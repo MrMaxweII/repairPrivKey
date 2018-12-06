@@ -21,12 +21,12 @@ import javax.swing.border.EmptyBorder;
 
 
 
-		/****************************************************************************************
-		*																						*
-		*		repairPrivKey repariert einen beschädigten Priv-Key wenn wenige Zeichen fehlen.	*
-		*																						*
-		*																						*
-		*****************************************************************************************/
+	/****************************************************************************************
+	*											*
+	*	repairPrivKey repariert einen beschädigten Priv-Key wenn wenige Zeichen fehlen.	*
+	*											*
+	*											*
+	*****************************************************************************************/
 
 
 public class GUI extends JFrame 
@@ -35,19 +35,19 @@ public class GUI extends JFrame
 
 
 
-public static final String			progName		= "repairPrivKey";
-public static final String			version 		= "V1.0.0";
-public static final String			autor 			= "Mr. Maxwell";
-public static final String			myBitcoinAddr 	= "12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB";
+public static final String	progName	= "repairPrivKey";
+public static final String	version 	= "V1.0.0";
+public static final String	autor 		= "Mr. Maxwell";
+public static final String	myBitcoinAddr 	= "12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB";
 
 public static 		ServerSocket 		lockSocket;													// Dieser Socket ist für die Sperrung beim Programmstart zuständig, wenn das Programm bereites ausgeführt ist.
-public static 		JPanel 				pnl_Main;													// Das Hauptpanel der Gui
-public static 		JTextField 			txt_PrivateKey;												// Eingabefeld Priv.Key
-public static 		JTextField 			txt_BitcoinAdr;												// Eingabe Bitcoin Adresse
-public static 		JTextPane 			txt_Ausgabe;												// Das Ausgabe Feld aller Meldungen und Ausgaben
+public static 		JPanel 			pnl_Main;													// Das Hauptpanel der Gui
+public static 		JTextField 		txt_PrivateKey;												// Eingabefeld Priv.Key
+public static 		JTextField 		txt_BitcoinAdr;												// Eingabe Bitcoin Adresse
+public static 		JTextPane 		txt_Ausgabe;												// Das Ausgabe Feld aller Meldungen und Ausgaben
 public static		JProgressBar 		progressBar;												// Die animierte Warte-Anzeige
-public static		JButton 			btn_start;													// Der Start/Stop Button
-public static 		JTextPane 			lbl_Info;													// Das Infofenster mit den Laufzeitinformationen
+public static		JButton 		btn_start;													// Der Start/Stop Button
+public static 		JTextPane 		lbl_Info;													// Das Infofenster mit den Laufzeitinformationen
 
 
 
