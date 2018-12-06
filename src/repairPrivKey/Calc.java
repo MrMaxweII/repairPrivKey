@@ -33,24 +33,24 @@ public class Calc
 // Berechnet den PublicKey X-Koordinate, Eingabe Hex-String, Rückgabe Hex-String
 public static String getPublicKeyX(String str)
 {
-   return getPublicKey(str).substring(0,66); 
+  	return getPublicKey(str).substring(0,66); 
 }
 	  
 	  
 //Berechnet den PublicKey X und Y -Koordinate, Eingabe Hex-String, Rückgabe Hex-String	  
 public static String getPublicKey(String str) 
 { 
-    byte[] b = getPublicKey(Convert.hexStringToByteArray(str));
-    return Convert.byteArrayToHexString(b);
+   	byte[] b = getPublicKey(Convert.hexStringToByteArray(str));
+   	return Convert.byteArrayToHexString(b);
 }	
 	
 		
 // berechnet den Public Key aus dem Private Key in Byte Array
 public static byte[] getPublicKey(byte[] privateKey) 
 {
-  ECNamedCurveParameterSpec spec = ECNamedCurveTable.getParameterSpec("secp256k1"); 
-  ECPoint pointQ = spec.getG().multiply(new BigInteger(1, privateKey)); 
-  return pointQ.getEncoded(false); 
+ 	ECNamedCurveParameterSpec spec = ECNamedCurveTable.getParameterSpec("secp256k1"); 
+ 	ECPoint pointQ = spec.getG().multiply(new BigInteger(1, privateKey)); 
+ 	return pointQ.getEncoded(false); 
 } 
 	
 		
