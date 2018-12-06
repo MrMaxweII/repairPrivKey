@@ -27,8 +27,6 @@ Diese können sie, wenn Java installiert ist einfach per Doppelklick Starten.
 Code kompilieren
 
 Das Projekt ist mit eclipse erstellt worden.
-Sie können es entweder in eclipse wieder importieren oder die java Quelldateien verwenden.
-Es befinden sich alle benötigten Quelldateien im src Ordner.
-Zum Import nach eclipse gehen sie auf Datei/Open Projects from File System, wählen sie das ZIP Archiv aus, Fertigstellen!
-Alle benötigten Bibliotheken, sind bereits im Projekt enthalten (im lib Ordner). Sie können also das Projekt direkt starten.
+Sie können es entweder in eclipse importieren oder die java Quelldateien verwenden.
+Es befinden sich alle benötigten Quelldateien im src und im lib Ordner.
 
