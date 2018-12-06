@@ -10,9 +10,10 @@ Bei 4 fehlenden Zeichen kann der Priv.Key in 10min. errechnet werden. Fehlen meh
 Die geschätzte Rechenzeit wird unten angezeigt.
 
 
-Diese Demoversion kann nur 2 fehlende Zeichen wiederherstellen.
-Wenn Sie einen beliebigen  Betrag spenden an: 12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB
-erhalten Sie die Vollversion. E-Mail an Maxwell-KSP@gmx.de
+Diese Demoversion ist auf zwei fehlende Zeichen begrenzt.
+Wenn Sie einen beliebigen Betrag spenden an: 12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB
+erhalten Sie die Vollversion ohne Begrenzung.
+E-Mail an Maxwell-KSP@gmx.de
 
 
 
