@@ -6,13 +6,14 @@ Dies ist eine Java Anwendung, sie müssen also Java installieren!
 https://java.com/de/download/
 
 
-Programm Starten
-Im Ordner "release" befindet sich die "RepairPrivKey.jar" Datei.
+#Programm Starten
 
+Im Ordner "release" befindet sich die "RepairPrivKey.jar" Datei.
 Diese können sie, wenn Java installiert ist einfach per Doppelklick Starten.
 
 
-Code kompilieren
+#Code kompilieren
+
 Das Projekt ist mit eclipse erstellt worden.
 Sie können es entweder in eclipse wieder importieren oder die java Quelldateien verwenden.
 Es befinden sich alle benötigten Quelldateien im src Ordner.
