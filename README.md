@@ -1,5 +1,15 @@
 # repairPrivKey
 Hier kann ein Bitcoin Priv. Key mit einigen wenigen fehlenden Zeichen wiederhergestellt werden.
+Geben sie den beschädigten Priv.Key ein und ersetzten sie die fehlenden Zeichen durch ein "_" Unterstrich.
+
+z.B. so:  5_5ZyFA5NqiBzCbiaTh5KYJmSh7dXdk65DvGkcx9G6ydsj83T_1
+
+Geben Sie dann die zugehörige Bitcoin Adresse in das untere Feld ein und drücken Sie den Suchen Button.
+Bei 4 fehlenden Zeichen kann der Priv.Key in 10min. errechnet werden. Fehlen mehr Zeichen, steigt die Berechnungszeit exponentiell an. Die Geschätzte Rechenzeit wird unten angezeigt.
+
+
+
+
 
 
 Dies ist eine Java Anwendung, sie müssen also Java installieren!
