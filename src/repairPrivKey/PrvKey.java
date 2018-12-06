@@ -10,20 +10,20 @@ import org.bouncycastle.math.ec.ECPoint;
 
 
 
-	/************************************************************************************************************
-	 *																											*
-	 *		Nicht statische Klasse die ein Private-Key Object erstellt.											*
-	 *		Es sind 3 Konstrukor´s implementiert																*
-	 *		-	einer für ByteArray																				*
-	 *		-	Hex-String 64Zeichen																			*
-	 *		-	Text-String (2xSHA256)																			*
-	 *		Dem Konstruktor wird der Priv.Key übergeben.														*
-	 *		Dann können alle Key´s in allen möglichen Formaten abgerufen werden.								*	
-	 *																											*
-	 *		magig "0b110907" = TestNet																			*
-	 *		magig "f9beb4d9" = Main-Net																			*
-	 *																											*
-	 ************************************************************************************************************/
+	/********************************************************************************************************
+	 *													*
+	 *	Nicht statische Klasse die ein Private-Key Object erstellt.					*
+	 *	Es sind 3 Konstrukor´s implementiert								*
+	 *	-	einer für ByteArray									*
+	 *	-	Hex-String 64Zeichen									*
+	 *	-	Text-String (2xSHA256)									*
+	 *	Dem Konstruktor wird der Priv.Key übergeben.							*
+	 *	Dann können alle Key´s in allen möglichen Formaten abgerufen werden.				*
+	 *													*
+	 *	magig "0b110907" = TestNet									*
+	 *	magig "f9beb4d9" = Main-Net									*
+	 *													*
+	 ********************************************************************************************************/
 
 
 
@@ -34,16 +34,16 @@ import org.bouncycastle.math.ec.ECPoint;
 public class PrvKey 
 {
 		
-	private byte[] privKey;							// Der Priv.Key als 32Byte-Array 								
-	private static String PrivKeyVersionsNr;		// Die Private Key    VersionsNr. "80" = MainNet und "ef" = TestNet
-	private String magig;							// TestNet oder MainNet
+	private byte[] privKey;				// Der Priv.Key als 32Byte-Array
+	private static String PrivKeyVersionsNr;	// Die Private Key    VersionsNr. "80" = MainNet und "ef" = TestNet
+	private String magig;				// TestNet oder MainNet
 	
 	
 	
 	
 	
 	
-// ---------------------------------------------------- Konstruktoren -------------------------------------------------------------	
+// ---------------------------------------------------- Konstruktoren ----------------------------------------------------
 	
 /**	Dem Konstruktor wird der Priv.Key 32Byte übergeben.
 *	magig "0b110907" = TestNet	, magig "f9beb4d9" = Main-Net
@@ -52,7 +52,7 @@ public PrvKey(byte[] privKey, String magig) throws IllegalArgumentException
 {
 	this.magig = magig;
 	if(magig.equals("0b110907"))PrivKeyVersionsNr	= "ef";						// Auswahl TestNet3
-	else						PrivKeyVersionsNr	= "80";						// Auswahl Main-Net
+	else			PrivKeyVersionsNr	= "80";						// Auswahl Main-Net
 
 	if(privKey.length != 32)									
 	throw new IllegalArgumentException("Error in \"PrvKey\": Byte-length is not 32Byte!");
@@ -69,7 +69,7 @@ public PrvKey(String privKey, String magig) throws IllegalArgumentException
 {
 	this.magig = magig;
 	if(magig.equals("0b110907"))PrivKeyVersionsNr	= "ef";						// Auswahl TestNet3
-	else						PrivKeyVersionsNr	= "80";						// Auswahl Main-Net
+	else						PrivKeyVersionsNr	= "80";			// Auswahl Main-Net
 	
 	String prvKey = txtToHexPrivKey(privKey);
 	is_PrivKey_Valid(prvKey);
@@ -88,7 +88,7 @@ public PrvKey(String privKey, String magig, boolean TRUE) throws UnsupportedEnco
 {
 	this.magig = magig;
 	if(magig.equals("0b110907"))PrivKeyVersionsNr	= "ef";						// Auswahl TestNet3
-	else						PrivKeyVersionsNr	= "80";						// Auswahl Main-Net
+	else						PrivKeyVersionsNr	= "80";			// Auswahl Main-Net
 	this.privKey = 	Calc.getHashSHA256((privKey).getBytes("UTF-8"));
 }
 
@@ -107,12 +107,12 @@ public PrvKey(String privKey, String magig, boolean TRUE) throws UnsupportedEnco
 // Hier wird geprüft ob der Private-Key(Hex) inerhalb des erlaubten Bereiches liegt
 private boolean is_PrivKey_Valid(String str) throws IllegalArgumentException
 {
-	if(str.equals("")) 							throw new IllegalArgumentException("Error in \"PrvKey\": Private Key is NULL!");
-	BigInteger min = new BigInteger("0",16);																
+	if(str.equals("")) 			throw new IllegalArgumentException("Error in \"PrvKey\": Private Key is NULL!");
+	BigInteger min = new BigInteger("0",16);					
 	BigInteger max = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364140",16);	
 	BigInteger key = new BigInteger(str,16);
-	if(key.compareTo(min) <= 0) 				throw new IllegalArgumentException("Error in \"PrvKey\": Private Key is <= 0!");
-	if(key.compareTo(max) >  0) 				throw new IllegalArgumentException("Error in \"PrvKey\": Private Key is > Max!");
+	if(key.compareTo(min) <= 0) 		throw new IllegalArgumentException("Error in \"PrvKey\": Private Key is <= 0!");
+	if(key.compareTo(max) >  0) 		throw new IllegalArgumentException("Error in \"PrvKey\": Private Key is > Max!");
 	return true;
 }
 
@@ -127,17 +127,17 @@ private String txtToHexPrivKey(String str) throws IllegalArgumentException
 	int s;
 
 	if(PrivKeyVersionsNr.equals("ef")) 		s = getFormat_TestNet(str);
-	else 									s = getFormat_MainNet(str);
+	else 						s = getFormat_MainNet(str);
 	
 	switch(s)
 	{
-		case-1: 	throw new IllegalArgumentException("Error in \"PrvKey\": false format");									//-1 = Fehler kein richtiges Format erkannt
-		case 0:     throw new IllegalArgumentException("Error in \"PrvKey\": Null-String");										// 0 = Null String
-		case 1:  	return str;  																								// 1 = Hexa       
-		case 2:  	return base58_PrivateKey_to_HexPrivateKey(str);																// 2 = Base58
-		case 3:     return base58compressed_PrivateKey_to_HexPrivateKey(str);													// 3 = Base58 compressed              			
-		case 4:     return base64_PrivateKey_to_HexPrivateKey(str);  															// 4 = Base64   
-		case 5:     return base6_PrivateKey_to_HexPrivateKey(str);  															// 5 = Base6 
+		case-1: throw new IllegalArgumentException("Error in \"PrvKey\": false format");//-1 = Fehler kein richtiges Format erkannt
+		case 0: throw new IllegalArgumentException("Error in \"PrvKey\": Null-String");	// 0 = Null String
+		case 1: return str;  								// 1 = Hexa       
+		case 2: return base58_PrivateKey_to_HexPrivateKey(str);				// 2 = Base58
+		case 3: return base58compressed_PrivateKey_to_HexPrivateKey(str);		// 3 = Base58 compressed
+		case 4: return base64_PrivateKey_to_HexPrivateKey(str);  			// 4 = Base64   
+		case 5: return base6_PrivateKey_to_HexPrivateKey(str);  			// 5 = Base6 
 		default:	break;
 	}
 	return null;
@@ -155,12 +155,12 @@ private String txtToHexPrivKey(String str) throws IllegalArgumentException
 // 5 = Base6
 private int getFormat_MainNet(String str)
 {
-	if(str.equals(""))   																																return 0;	// prüfen ob leer String
-	if(str.length()==64 && str.matches("[0-9a-fA-F]+")) 																								return 1;	// prüfen auf Hexa
-	if(str.length()==51 && str.matches("[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+") && str.charAt(0)=='5') 							return 2;	// prüfen auf Base58
-	if(str.length()==52 && str.matches("[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+") && (str.charAt(0)=='L' || str.charAt(0)=='K'))	return 3;	// prüfen auf Base58 compressed
-	if(str.length()==44 && str.matches("[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=]+") &&  str.charAt(43)=='=') 				return 4;	// prüfen auf Base64
-	if(str.length()==100 && str.matches("[123456-]+")) 																									return 5;	// prüfen auf Base6
+	if(str.equals(""))   																	return 0;	// prüfen ob leer String
+	if(str.length()==64 && str.matches("[0-9a-fA-F]+")) 													return 1;	// prüfen auf Hexa
+	if(str.length()==51 && str.matches("[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+") && str.charAt(0)=='5') 				return 2;	// prüfen auf Base58
+	if(str.length()==52 && str.matches("[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+") && (str.charAt(0)=='L' || str.charAt(0)=='K'))	return 3;	// prüfen auf Base58 compresseda
+	if(str.length()==44 && str.matches("[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=]+") &&  str.charAt(43)=='=') 			return 4;	// prüfen auf Base64
+	if(str.length()==100 && str.matches("[123456-]+")) 													return 5;	// prüfen auf Base6
 	return -1;
 }
 
@@ -192,8 +192,8 @@ private int getFormat_TestNet(String str)
 private String base58_PrivateKey_to_HexPrivateKey(String str) throws IllegalArgumentException
 {
 	if(is_PrvKey_Base58_Valid(str) == false) throw new IllegalArgumentException("Error in \"PrvKey\": Base58 is not valide!");							// Wenn Fehler auftrit
-	String erg = Convert.Base58ToHexString(str,74);																										// wird nach Hex konvertiert  (74 Zeichen lang)
-	return erg.substring(2,66);																															// Das erste Byte und die letzten 8 Zeichen werden entfernt
+	String erg = Convert.Base58ToHexString(str,74);																	// wird nach Hex konvertiert  (74 Zeichen lang)
+	return erg.substring(2,66);																			// Das erste Byte und die letzten 8 Zeichen werden entfernt
 }	  
 
 
@@ -202,7 +202,7 @@ private String base58compressed_PrivateKey_to_HexPrivateKey(String str) throws I
 {
 	if(is_PrvKey_Base58compressed_Valid(str) == false) throw new IllegalArgumentException("Error in \"PrvKey\": Base58 compressed is not valide!");		// Wenn Fehler auftrit
 	String erg = Convert.Base58ToHexString(str,76);																										// wird nach Hex konvertiert  (76 Zeichen Byte lang)
-	return erg.substring(2,66);																															// Das erste Byte und die letzten 10 Zeichen werden entfernt
+	return erg.substring(2,66);																												// Das erste Byte und die letzten 10 Zeichen werden entfernt
 }
 
 
@@ -222,13 +222,13 @@ private String base64_PrivateKey_to_HexPrivateKey(String str) throws IllegalArgu
 // Mamimaler Würfelwerd (Mod) = 1621416542-2615626236-3462631235-4363525141-6636261141-4266313436-1546433233-1342224233-3313325535-4344331641
 private String base6_PrivateKey_to_HexPrivateKey(String str)                  
 {
-	BigInteger mod = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141",16);											    // Modulo des Privatkey / überlauf                                                                                                                                                      
-	str = str.replaceAll("-","");								 																						// Platzhalter Zeichen "-" wird aus dem String entfernt
-	str = str.replaceAll("6","0");																														// Die Ziffer 6 wird mit 0 ersetzt																														// nach String     zur Basis 16
-	BigInteger dec = new BigInteger(str,6);																												// nach BigInteger zur Bases  6
-	dec = dec.mod(mod);																																	// Private Key Modulo FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141 
-	String erg = dec.toString(16);  																													// nach String     zur Bases 16 
-	while(erg.length() < 64) erg="0"+erg;																												// String wird vorne mit nullen aufgef�llt
+	BigInteger mod = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141",16);										    // Modulo des Privatkey / überlauf                                     
+	str = str.replaceAll("-","");								 											// Platzhalter Zeichen "-" wird aus dem String entfernt
+	str = str.replaceAll("6","0");																			// Die Ziffer 6 wird mit 0 ersetzt, nach String     zur Basis 16
+	BigInteger dec = new BigInteger(str,6);																		// nach BigInteger zur Bases  6
+	dec = dec.mod(mod);																				// Private Key Modulo FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141 
+	String erg = dec.toString(16);  																		// nach String     zur Bases 16 
+	while(erg.length() < 64) erg="0"+erg;																		// String wird vorne mit nullen aufgef�llt
 	return erg;
 }
 
@@ -238,10 +238,10 @@ private String base6_PrivateKey_to_HexPrivateKey(String str)
 private boolean is_PrvKey_Base58_Valid(String str)
 {
 	if(str.equals("") || str.length() != 51) 		return false;                                                                   // Format prüfung
-	String roh = Convert.Base58ToHexString(str,74);																					// wird nach Hex konvertiert  (74 Zeichen lang)
-	String a = roh.substring(0,66);																									// die ersten 66 Zeichen
-	String b = roh.substring(66,74).toLowerCase();																					// die letzten 8 Zeichen die als Hash(SHA256) angeh�ngt sind werden in gro�buchstaben konvertiert
-	String h = null;																												// der neue Hash, zum vergleich
+	String roh = Convert.Base58ToHexString(str,74);																		// wird nach Hex konvertiert  (74 Zeichen lang)
+	String a = roh.substring(0,66);																				// die ersten 66 Zeichen
+	String b = roh.substring(66,74).toLowerCase();																		// die letzten 8 Zeichen die als Hash(SHA256) angeh�ngt sind werden in gro�buchstaben konvertiert
+	String h = null;																					// der neue Hash, zum vergleich
 	try
 	{
 		h = Calc.getHashSHA256_from_HexString(a);																					// 2x SHA256 vom ersten Teil
