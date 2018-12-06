@@ -30,3 +30,14 @@ Das Projekt ist mit eclipse erstellt worden.
 Sie können es entweder in eclipse importieren oder die java Quelldateien verwenden.
 Es befinden sich alle benötigten Quelldateien im src und im lib Ordner.
 
+Kontakt
+Wenn sie Bug´s finden, Ideen für Verbesserungen, oder einfach Fragen haben,
+
+freue ich mich über jede Mail: Maxwell-KSP@gmx.de
+
+
+Spenden
+Wenn Ihnen das Programm gefällt, würde ich mich über eine Spende sehr freuen:
+
+
+12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB
