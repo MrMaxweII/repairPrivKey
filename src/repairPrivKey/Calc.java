@@ -12,9 +12,9 @@ import org.bouncycastle.math.ec.ECPoint;
 
 
 	/************************************************************************
-	 *																		*
-	 *		Hier werden alle möglichen Berechnungen durchgeführt.			*
-	 *																		*
+	 *									*
+	 *	Hier werden alle möglichen Berechnungen durchgeführt.		*
+	 *									*
 	 ************************************************************************/
 
 
@@ -26,9 +26,6 @@ public class Calc
 	
 
 	
-
-
-
 	
 // ------------------------------------------------- Secp256k1 ------------------------------------------------------//	
 	
@@ -78,11 +75,12 @@ public static String getHashSHA256(String str)
 		byte[] b = getHashSHA256((str).getBytes("UTF-8"));
 		return Convert.byteArrayToHexString(b);
 	} 
-		catch (UnsupportedEncodingException e) {
+		catch (UnsupportedEncodingException e) 
+		{
 			System.out.println("Fehler in getHashSHA256()");
 			System.out.println(e.getMessage());
 			return "-1";
-	}
+		}
 	 
 }
 		
@@ -119,11 +117,11 @@ public static String getHashRIPEMD160_from_HexString(String str)
 		
 public static byte[] getHashRIPEMD160(byte[] b)
 {
-	  RIPEMD160Digest ripemd = new RIPEMD160Digest();
-      ripemd.update (b, 0, b.length);
-      byte[] hash160 = new byte[ripemd.getDigestSize()];
-      ripemd.doFinal (hash160, 0);
-	  return hash160;	
+	RIPEMD160Digest ripemd = new RIPEMD160Digest();
+	ripemd.update (b, 0, b.length);
+	byte[] hash160 = new byte[ripemd.getDigestSize()];
+   	ripemd.doFinal (hash160, 0);
+	return hash160;	
 }	
 	
 	
@@ -148,12 +146,5 @@ public static String getHashSHA1(String in)
 		return null;
 	}
 }
-
-
 }
-
-
-
-
-
 
