@@ -11,7 +11,7 @@ Die geschätzte Rechenzeit wird unten angezeigt.
 
 
 Diese Demoversion kann nur 2 fehlende Zeichen wiederherstellen.
-Wenn sie einen beliebigen  Betrag spenden an: 12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB
+Wenn Sie einen beliebigen  Betrag spenden an: 12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB
 erhalten Sie die Vollversion. E-Mail an Maxwell-KSP@gmx.de
 
 
