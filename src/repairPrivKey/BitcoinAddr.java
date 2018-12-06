@@ -4,17 +4,17 @@ import java.util.Arrays;
 
 
 	/************************************************************************************************************
-	 *																											*
-	 *		Nicht statische Klasse die eine Bitcoin-Adresse erstellt.											*
-	 *		Mit dem Konstruktor muss zuerst ein Bitcoin-Adress-Object erzeugt werden.							*
-	 *		Es sind 3 Konstruktoren implementiert.																*
-	 *		-	Hash160 Formalt																					*
-	 *		-	String: "hexa" oder "base58" (Muss angegeben werden)											*
-	 *		-	String: "h160" als String  oder "base58"  (Wird selbst erkannt)									*
-	 *	 																										*
-	 *		magig "0b110907" = TestNet																			*
-	 *		magig "f9beb4d9" = Main-Net																			*
-	 *																											*
+	 *														*
+	 *		Nicht statische Klasse die eine Bitcoin-Adresse erstellt.					*
+	 *		Mit dem Konstruktor muss zuerst ein Bitcoin-Adress-Object erzeugt werden.			*
+	 *		Es sind 3 Konstruktoren implementiert.								*
+	 *		-	Hash160 Formalt										*
+	 *		-	String: "hexa" oder "base58" (Muss angegeben werden)					*
+	 *		-	String: "h160" als String  oder "base58"  (Wird selbst erkannt)				*
+	 *	 													*
+	 *		magig "0b110907" = TestNet									*
+	 *		magig "f9beb4d9" = Main-Net									*
+	 *														*
 	 ************************************************************************************************************/
 
 
@@ -23,10 +23,10 @@ import java.util.Arrays;
 public class BitcoinAddr 
 {
 			
-													/** Die Bitcoin Adress VersionsNr. "00" = MainNet und "6f" = TestNet, kann hier neu gesetzt werden. */
-	private String addresVersionsNr; 				
-													/** Die Bitcoin Adresse als 25Byte Array */
-	private byte[] bitcoinAddress;											
+	/** Die Bitcoin Adress VersionsNr. "00" = MainNet und "6f" = TestNet, kann hier neu gesetzt werden. */
+	private String addresVersionsNr; 	
+	/** Die Bitcoin Adresse als 25Byte Array */
+	private byte[] bitcoinAddress;									
 	
 	
 	
@@ -34,18 +34,18 @@ public class BitcoinAddr
 	
 	
 
-// ---------------------------------------------------- Konstruktoren -------------------------------------------------------------	
+// ---------------------------------------------------- Konstruktoren ------------------------------------------------
 	
 /**	Dem Konstruktor wird die BitcoinAdresse im Hash160 Format übergeben.	
 *	Der Magig-String beschreibt welches Bitcoin-Netzwerk verwendet wird. ("0b110907" ist TestNet3)  */
 public BitcoinAddr(Hash160 h160, String magig) 
 {	
-	if(magig.equals("0b110907")) 	addresVersionsNr	= "6f";										// Auswahl TestNet3
-	else							addresVersionsNr	= "00";										// Auswahl MeinNet	
+	if(magig.equals("0b110907")) 	addresVersionsNr	= "6f";					// Auswahl TestNet3
+	else				addresVersionsNr	= "00";					// Auswahl MeinNet
 	
 	String adr = addresVersionsNr + h160.toString(); 
 	String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(adr));	// 2 x SHA256
-	adr = adr +  h.substring(0,8);																													
+	adr = adr +  h.substring(0,8);		
 	bitcoinAddress =  Convert.hexStringToByteArray(adr);	
 }
 
@@ -55,14 +55,14 @@ public BitcoinAddr(Hash160 h160, String magig)
 
 /**	Dem Konstruktor wird die BitcoinAdresse als String (verschiedene String-Typen) übergeben.	
 *	Der "String-Typ im 2. Argument beschreibt in welchem Format die Bitcoin-Adresse interpretiert werden soll.
-*	stringTyp: "hex":  		Die Bitcoin-Adresse wird als 50-Zeichen Hex-String interpretiert, mit der angehängten Checksumme. 
+*	stringTyp: "hex":  Die Bitcoin-Adresse wird als 50-Zeichen Hex-String interpretiert, mit der angehängten Checksumme. 
 *	stringTyp: "base58":	Die Bitcoin-Adresse wird als Base58 String interpretiert.	
 *	Der Magig-String beschreibt welches Bitcoin-Netzwerk verwendet wird.
 *	Löst IllegalArgumentException aus, falls die BitcoinAdresse nicht richtig ist.  */
 public BitcoinAddr(String address, String stringTyp, String magig) throws IllegalArgumentException
 {
-	if(magig.equals("0b110907")) 	addresVersionsNr	= "6f";										// Auswahl TestNet3
-	else							addresVersionsNr	= "00";										// Auswahl MeinNet	
+	if(magig.equals("0b110907")) 	addresVersionsNr	= "6f";					// Auswahl TestNet3
+	else				addresVersionsNr	= "00";					// Auswahl MeinNet
 	
 	if(stringTyp.equals("hex"))
 	{
@@ -71,7 +71,7 @@ public BitcoinAddr(String address, String stringTyp, String magig) throws Illega
 			if(address.substring(0,2).equals(addresVersionsNr))
 			{
 				String addr = address.substring(0,42);
-				String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(addr));	// 2 x SHA256				
+				String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(addr));	
 				h=h.substring(0, 8);
 				if(h.equals(address.substring(42, 50))) bitcoinAddress =  Convert.hexStringToByteArray(address);
 				else throw new IllegalArgumentException("Error in \"BitcoinAddr\" : False Address-Hash!"); 
@@ -88,7 +88,7 @@ public BitcoinAddr(String address, String stringTyp, String magig) throws Illega
 		if(address.substring(0,2).equals(addresVersionsNr))
 		{
 			String addr = address.substring(0,42);
-			String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(addr));	// 2 x SHA256				
+			String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(addr));
 			h=h.substring(0, 8);
 			if(h.equals(address.substring(42, 50))) bitcoinAddress =  Convert.hexStringToByteArray(address);
 			else throw new IllegalArgumentException("Error in \"BitcoinAddr\" : False Address-Hash!"); 
@@ -111,14 +111,14 @@ public BitcoinAddr(String address, String stringTyp, String magig) throws Illega
 *	Löst IllegalArgumentException aus, falls die BitcoinAdresse oder der Hash160 nicht richtig ist.  */
 public BitcoinAddr(String addr, String magig) throws IllegalArgumentException
 {
-	if(magig.equals("0b110907")) 	addresVersionsNr	= "6f";											// Auswahl TestNet3
-	else							addresVersionsNr	= "00";											// Auswahl MeinNet	
+	if(magig.equals("0b110907")) 	addresVersionsNr	= "6f";					// Auswahl TestNet3
+	else				addresVersionsNr	= "00";					// Auswahl MeinNet
 		
 	if(addr.length()==40 && addr.matches("[0-9a-fA-F]+"))
 	{		
 		String adr = addresVersionsNr + addr; 
-		String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(adr));			// 2 x SHA256
-		adr = adr +  h.substring(0,8);																													
+		String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(adr));	
+		adr = adr +  h.substring(0,8);									
 		bitcoinAddress =  Convert.hexStringToByteArray(adr);
 		return;
 	}
@@ -129,7 +129,7 @@ public BitcoinAddr(String addr, String magig) throws IllegalArgumentException
 		if(address.substring(0,2).equals(addresVersionsNr))
 		{
 			String m = address.substring(0,42);
-			String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(m));	// 2 x SHA256				
+			String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(m));	
 			h=h.substring(0, 8);
 			if(h.equals(address.substring(42, 50))) bitcoinAddress =  Convert.hexStringToByteArray(address);
 			else throw new IllegalArgumentException("Error in \"BitcoinAddr\" : False Address-Hash!"); 
@@ -187,7 +187,7 @@ public byte[] getAddress_byte()
 
 /**	Gibt die Bitcoin-Adresse als Base58 String zurück. */
 public String getBase58Address()
-{																												
+{											
 	return Convert.hexStringToBase58(toString());	
 }
 
