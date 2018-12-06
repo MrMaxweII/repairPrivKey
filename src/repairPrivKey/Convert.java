@@ -18,7 +18,7 @@ public class Convert
 /** Hexa String wird in ein Byte Array konvertiert. */
 public static byte[] hexStringToByteArray(String hex) 
 {                                                                     
-	if((hex.length()%2)==1)                                           // Falls die Länge des Strings ungerade ist, wird eine 1 angeh?ngt
+	if((hex.length()%2)==1)                            // Falls die Länge des Strings ungerade ist, wird eine 1 angeh?ngt
 	{
 		char c = '1';
 		hex += c;
@@ -51,7 +51,7 @@ public static String byteArrayToHexString(byte[] a)
 
 
 /** Wandelt ein Base58 Text-String in Hex-String um. 
-*	In "laenge" wird die Anzahl der Ausgabe-Zeichen übergeben. */
+*   In "laenge" wird die Anzahl der Ausgabe-Zeichen übergeben. */
 public static String Base58ToHexString(String str, int laenge)
 {
 	char[] ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
@@ -266,8 +266,8 @@ public static byte[] Int_To_4_ByteArray_swap(int data)
 public static byte[] Long_To_8_ByteArray(long data)
 {
 	ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-    buffer.putLong(data);
-    return buffer.array();
+    	buffer.putLong(data);
+    	return buffer.array();
 }
 
 
@@ -302,33 +302,4 @@ public static boolean isZwischen(String str, int a, int b)
 	if(z>=a && z<= b)return true;
 	else return false;	
 }
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-// ------------------------ old --------------------------------------//
-
-/*
-
-
-
-
-*/
-
-
-
-
 
