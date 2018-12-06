@@ -43,7 +43,7 @@ freue ich mich über jede Mail: Maxwell-KSP@gmx.de
 
 Spenden
 
-Wenn Ihnen das Programm gefällt, würde ich mich über eine Spende sehr freuen:
+Wenn Ihnen das Programm gefällt und sie Spenden, erhalten sie die Vollversion.
 
-
+Spenden an:
 12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB
