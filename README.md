@@ -22,7 +22,7 @@ https://java.com/de/download/
 
 Programm Starten
 
-Im Ordner "release" befindet sich die "RepairPrivKey.jar" Datei.
+Im Ordner "release" befindet sich die "RepairPrivKey_Demo.jar" Datei.
 Diese können sie, wenn Java installiert ist einfach per Doppelklick Starten.
 
 
