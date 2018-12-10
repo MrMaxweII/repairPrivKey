@@ -3,16 +3,11 @@ package GUI;
 import java.awt.Font;
 
 	/****************************************************************************************
-	 *																							*
-	 *		Automatische Größenanpassung aller Elemente in der GUI bei der Größenanpassung 		*
-	 *		des Hauptfensters mit der Maus.														*
-	 *																							*
-	 *																							*
-	 *****************************************************************************************/
-
-
-
-
+	 *											*
+	 *	Automatische Größenanpassung aller Elemente in der GUI bei der Größenanpassung 	*
+	 *	des Hauptfensters mit der Maus.							*
+	 *											*
+	 ****************************************************************************************/
 
 
 
@@ -21,12 +16,10 @@ public class AutoSize
 
 
 	
-	
-	
 	// Die größe der Elemente wird durch den Rahmen ermittelt und angepasst.
 	public static void size(double w, double h)
 	{
-			 if((w<692 && true)   || (h<300)) 		setSize_0();
+		if((w<692 && true)   || (h<300)) 		setSize_0();
 		else if((w>=692 && w<735) || (h<300)) 		setSize_1();
 		else if((w>=735 && w<785) || (h<375))		setSize_2();
 		else if((w>=785 && w<835) || (h<410))		setSize_3();
@@ -344,7 +337,4 @@ public class AutoSize
 			GUI.lbl_Demo.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		}
 	
-	
-	
-
 }
