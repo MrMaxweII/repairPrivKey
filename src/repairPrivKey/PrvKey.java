@@ -149,12 +149,12 @@ private byte[] txtToHexPrivKey(String str) throws IllegalArgumentException
 	int format = getFormat(str);	
 	switch(format)
 	{
-		case-1: 	throw new IllegalArgumentException("Error in \"PrvKey\": false format");	//-1 = Fehler kein richtiges Format erkannt
-		case 0:     throw new IllegalArgumentException("Error in \"PrvKey\": Null-String");		// 0 = Null String
-		case 16:  	return Convert.hexStringToByteArray(str);  					// 16 = Hexa 
-		case 58:  	return base58_PrivateKey_to_HexPrivateKey(str);					// 58 = Base58
-		case 6:     return Convert.hexStringToByteArray(base6_PrivateKey_to_HexPrivateKey(str));  	// 6 = Base6 
-		default:	break;
+		case-1:  throw new IllegalArgumentException("Error in \"PrvKey\": false format");	//-1 = Fehler kein richtiges Format erkannt
+		case 0:  throw new IllegalArgumentException("Error in \"PrvKey\": Null-String");	// 0 = Null String
+		case 16: return Convert.hexStringToByteArray(str);  					// 16 = Hexa 
+		case 58: return base58_PrivateKey_to_HexPrivateKey(str);				// 58 = Base58
+		case 6:  return Convert.hexStringToByteArray(base6_PrivateKey_to_HexPrivateKey(str));  	// 6 = Base6 
+		default: break;
 	}
 	return null;
 }
@@ -169,10 +169,10 @@ private byte[] txtToHexPrivKey(String str) throws IllegalArgumentException
 //6 = Base6
 private int getFormat(String str)
 {
-	if(str.equals(""))   														return 0;	// prüfen ob leer String
-	if(str.length()==64 && 	str.matches("[0-9a-fA-F]+")) 										return 16;	// prüfen auf Hexa
-	if(						str.matches("[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+")) 	return 58;	// prüfen auf Base58
-	if(str.length()==109 && str.matches("[123456-]+")) 										return 6;	// prüfen auf Base6
+	if(str.equals(""))   								return 0;	// prüfen ob leer String
+	if(str.length()==64 && 	str.matches("[0-9a-fA-F]+")) 				return 16;	// prüfen auf Hexa
+	if(str.matches("[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+")) return 58;	// prüfen auf Base58
+	if(str.length()==109 && str.matches("[123456-]+")) 				return 6;	// prüfen auf Base6
 	return -1;
 }
 
@@ -192,11 +192,11 @@ private byte[] base58_PrivateKey_to_HexPrivateKey(String str) throws IllegalArgu
 	byte[] h32 = Calc.getHashSHA256(Calc.getHashSHA256(Arrays.copyOfRange(prv, 0, prv.length-4)));	
 	byte[] h4  = Arrays.copyOfRange(h32,0,4);										
 	byte[] hash = Arrays.copyOfRange(prv, prv.length-4, prv.length);						
-	if(Arrays.equals(hash, h4)==false)   								throw new IllegalArgumentException("Error in \"PrvKey\": Private key hash incorrect!");
+	if(Arrays.equals(hash, h4)==false)   					throw new IllegalArgumentException("Error in \"PrvKey\": Private key hash incorrect!");
 	prv = Arrays.copyOfRange(prv, pref_PrivKey.length, prv.length-4);	
-	if(prv.length>33 || prv.length<32)								throw new IllegalArgumentException("Error in \"PrvKey\": Private key size incorrect!");
-	if(prv.length==32)	{ compressed = 2; return prv;}									
-	if(prv.length==33 && prv[32]==0x01)	{compressed = 1; return Arrays.copyOfRange(prv, 0, 32);}		
+	if(prv.length>33 || prv.length<32)					throw new IllegalArgumentException("Error in \"PrvKey\": Private key size incorrect!");
+	if(prv.length==32)							{ compressed = 2; return prv;}									
+	if(prv.length==33 && prv[32]==0x01)					{compressed = 1; return Arrays.copyOfRange(prv, 0, 32);}		
 	throw new IllegalArgumentException("Error in \"PrvKey\": Private key incorrect Format!");	
 }	  
 
