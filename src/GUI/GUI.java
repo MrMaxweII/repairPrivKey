@@ -34,28 +34,25 @@ import javax.swing.JCheckBox;
 public class GUI extends JFrame 
 {
 
-
-public static final String		progName	= "repairPrivKey";
-public static final String		version 	= "V1.3.0";
-public static final String		autor 		= "Mr. Maxwell";
-public static final String		eMail		= "Maxwell-KSP@gmx.de";
-public static final String		myBitcoinAddr 	= "12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB";
-
-
-public static 		JFrame		hauptFenster;			// Hauptframe der GUI
-public static 		JPanel 		pnl_Main;			// Das Hauptpanel der Gui
-public static		JLabel 		lbl_beschreibung;		// Die Beschreibung der Software
-public static 		JTextField 	txt_PrivateKey;			// Eingabefeld Priv.Key
-public static		JLabel 		lbl_PrivKey;			// Label Priv.Key
-public static 		JTextField 	txt_BitcoinAdr;			// Eingabe Bitcoin Adresse
-public static		JLabel 		lbl_BitcoinAdr;
-public static 		JTextPane 	txt_Ausgabe;			// Das Ausgabe Feld aller Meldungen und Ausgaben
-public static		JProgressBar 	progressBar;			// Die animierte Warte-Anzeige
-public static		JButton 	btn_start;			// Der Start/Stop Button
-public static 		JTextPane 	lbl_Info;			// Das Infofenster mit den Laufzeitinformationen
-public static 		JTextField 	lbl_Demo;
-public static 		JCheckBox 	testnet = new JCheckBox("Testnet");
-public static 		CoinParameter	coinParameter;
+public static final String	progName	= "repairPrivKey";
+public static final String	version 	= "V1.3.0";
+public static final String	autor 		= "Mr. Maxwell";
+public static final String	eMail		= "Maxwell-KSP@gmx.de";
+public static final String	myBitcoinAddr 	= "12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB";
+public static 	JFrame		hauptFenster;			// Hauptframe der GUI
+public static 	JPanel 		pnl_Main;			// Das Hauptpanel der Gui
+public static	JLabel 		lbl_beschreibung;		// Die Beschreibung der Software
+public static 	JTextField 	txt_PrivateKey;			// Eingabefeld Priv.Key
+public static	JLabel 		lbl_PrivKey;			// Label Priv.Key
+public static 	JTextField 	txt_BitcoinAdr;			// Eingabe Bitcoin Adresse
+public static	JLabel 		lbl_BitcoinAdr;
+public static 	JTextPane 	txt_Ausgabe;			// Das Ausgabe Feld aller Meldungen und Ausgaben
+public static	JProgressBar 	progressBar;			// Die animierte Warte-Anzeige
+public static	JButton 	btn_start;			// Der Start/Stop Button
+public static 	JTextPane 	lbl_Info;			// Das Infofenster mit den Laufzeitinformationen
+public static 	JTextField 	lbl_Demo;
+public static 	JCheckBox 	testnet = new JCheckBox("Testnet");
+public static 	CoinParameter	coinParameter;
 
 
 public static void main(String[] args) 
@@ -96,12 +93,9 @@ public static void main(String[] args)
 	
 public GUI() throws Exception 
 {
-
-	
 	pnl_Main = new JPanel();
 	pnl_Main.setLayout(null);
 	hauptFenster = this;
-
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setTitle(progName+"               "+version);
 	setBounds(100, 100, 650, 420);
@@ -110,8 +104,7 @@ public GUI() throws Exception
 	setMinimumSize(new java.awt.Dimension(650, 400));
 	setPreferredSize(new java.awt.Dimension(650, 400));
 	setContentPane(pnl_Main);
-		
-	
+			
 	lbl_Demo = new JTextField();
 	lbl_Demo.setBorder(null);
 	lbl_Demo.setEditable(false);
@@ -129,8 +122,7 @@ public GUI() throws Exception
 	lbl_beschreibung.setForeground(new Color(0, 153, 255));
 	lbl_beschreibung.setBounds(10, 11, 624, 37);
 	pnl_Main.add(lbl_beschreibung);
-	
-	
+		
 // Eingabefeld Priv.Key
 	txt_PrivateKey = new JTextField();
 	txt_PrivateKey.setFont(new Font("Courier New", Font.PLAIN, 20));
@@ -140,8 +132,7 @@ public GUI() throws Exception
 	lbl_PrivKey.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	lbl_PrivKey.setBounds(10, 86, 453, 20);
 	pnl_Main.add(lbl_PrivKey);
-	
-	
+		
 // Eingabefeld Bitcoin Adresse
 	txt_BitcoinAdr = new JTextField();
 	txt_BitcoinAdr.setFont(new Font("Courier New", Font.PLAIN, 16));
@@ -152,8 +143,7 @@ public GUI() throws Exception
 	lbl_BitcoinAdr.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	lbl_BitcoinAdr.setBounds(10, 171, 369, 20);
 	pnl_Main.add(lbl_BitcoinAdr);
-	
-	
+		
 // Start Button
 	btn_start = new JButton("Suche starten");
 	btn_start.addActionListener(new ActionListener() 
@@ -167,8 +157,7 @@ public GUI() throws Exception
 	btn_start.setForeground(new Color(47, 79, 79));
 	btn_start.setBounds(483, 183, 145, 37);
 	pnl_Main.add(btn_start);
-	
-	
+		
 // Ausgabefeld
 	txt_Ausgabe = new JTextPane();
 	txt_Ausgabe.setBackground(SystemColor.menu);
@@ -176,8 +165,7 @@ public GUI() throws Exception
 	txt_Ausgabe.setEditable(false);
 	txt_Ausgabe.setBounds(10, 293, 624, 61);
 	pnl_Main.add(txt_Ausgabe);
-	
-	
+		
 // Die animierte Warte-Anzeige
 	progressBar = new JProgressBar();
 	progressBar.setEnabled(false);
@@ -187,19 +175,16 @@ public GUI() throws Exception
 	progressBar.setBorder(new EmptyBorder(0, 0, 0, 0));
 	progressBar.setVisible(false);
 	pnl_Main.add(progressBar);
-	
-	
+		
 // Das Infofenster mit den Laufzeitinformationen
 	lbl_Info = new JTextPane();
 	lbl_Info.setBackground(SystemColor.control);
 	lbl_Info.setEditable(false);
 	lbl_Info.setFont(new Font("Tahoma", Font.PLAIN, 11));
 	lbl_Info.setBounds(10, 245, 624, 47);
-	pnl_Main.add(lbl_Info);
-	
+	pnl_Main.add(lbl_Info);	
 	testnet.setBounds(10, 44, 97, 23);
-	pnl_Main.add(testnet);
-	
+	pnl_Main.add(testnet);	
 	coinParameter = CoinParameter.getFromSymbol("BTC");
 	
 	testnet.addActionListener(new ActionListener() 
@@ -208,7 +193,6 @@ public GUI() throws Exception
 		{
 			if	(testnet.isSelected()) 	coinParameter = CoinParameter.getFromSymbol("BTC-T");
 			else 	 			coinParameter = CoinParameter.getFromSymbol("BTC");
-
 		}
 	});
 }
