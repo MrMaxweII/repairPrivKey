@@ -23,12 +23,11 @@ import javax.swing.JCheckBox;
 
 
 
-		/****************************************************************************************
-		*																						*
-		*		repairPrivKey repariert einen beschädigten Priv-Key wenn wenige Zeichen fehlen.	*
-		*																						*
-		*																						*
-		*****************************************************************************************/
+/****************************************************************************************
+*											*
+*	repairPrivKey repariert einen beschädigten Priv-Key wenn wenige Zeichen fehlen.	*
+*											*
+*****************************************************************************************/
 
 
 
@@ -36,27 +35,27 @@ public class GUI extends JFrame
 {
 
 
-public static final String			progName		= "repairPrivKey";
-public static final String			version 		= "V1.3.0";
-public static final String			autor 			= "Mr. Maxwell";
-public static final String			eMail			= "Maxwell-KSP@gmx.de";
-public static final String			myBitcoinAddr 	= "12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB";
+public static final String		progName	= "repairPrivKey";
+public static final String		version 	= "V1.3.0";
+public static final String		autor 		= "Mr. Maxwell";
+public static final String		eMail		= "Maxwell-KSP@gmx.de";
+public static final String		myBitcoinAddr 	= "12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB";
 
 
-public static 		JFrame				hauptFenster;					// Hauptframe der GUI
-public static 		JPanel 				pnl_Main;						// Das Hauptpanel der Gui
-public static		JLabel 				lbl_beschreibung;				// Die Beschreibung der Software
-public static 		JTextField 			txt_PrivateKey;					// Eingabefeld Priv.Key
-public static		JLabel 				lbl_PrivKey;					// Label Priv.Key
-public static 		JTextField 			txt_BitcoinAdr;					// Eingabe Bitcoin Adresse
-public static		JLabel 				lbl_BitcoinAdr;
-public static 		JTextPane 			txt_Ausgabe;					// Das Ausgabe Feld aller Meldungen und Ausgaben
-public static		JProgressBar 		progressBar;					// Die animierte Warte-Anzeige
-public static		JButton 			btn_start;						// Der Start/Stop Button
-public static 		JTextPane 			lbl_Info;						// Das Infofenster mit den Laufzeitinformationen
-public static 		JTextField 			lbl_Demo;
-public static 		JCheckBox 			testnet = new JCheckBox("Testnet");
-public static 		CoinParameter		coinParameter;
+public static 		JFrame		hauptFenster;			// Hauptframe der GUI
+public static 		JPanel 		pnl_Main;			// Das Hauptpanel der Gui
+public static		JLabel 		lbl_beschreibung;		// Die Beschreibung der Software
+public static 		JTextField 	txt_PrivateKey;			// Eingabefeld Priv.Key
+public static		JLabel 		lbl_PrivKey;			// Label Priv.Key
+public static 		JTextField 	txt_BitcoinAdr;			// Eingabe Bitcoin Adresse
+public static		JLabel 		lbl_BitcoinAdr;
+public static 		JTextPane 	txt_Ausgabe;			// Das Ausgabe Feld aller Meldungen und Ausgaben
+public static		JProgressBar 	progressBar;			// Die animierte Warte-Anzeige
+public static		JButton 	btn_start;			// Der Start/Stop Button
+public static 		JTextPane 	lbl_Info;			// Das Infofenster mit den Laufzeitinformationen
+public static 		JTextField 	lbl_Demo;
+public static 		JCheckBox 	testnet = new JCheckBox("Testnet");
+public static 		CoinParameter	coinParameter;
 
 
 public static void main(String[] args) 
@@ -78,12 +77,12 @@ public static void main(String[] args)
 			}
 		});
 			
-		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() 		// Nach dem Ende des Programms
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() 	// Nach dem Ende des Programms
 		{
 			public void run() 
-			{																// Hier alles einfügen was nach dem Beenden des Programms noch getan werden muss!
+			{	// Hier alles einfügen was nach dem Beenden des Programms noch getan werden muss!
 				Run.stop = true;
-				System.out.println("Programm wurde beendet.");												
+				System.out.println("Programm wurde beendet.");
 			}
 		}));			
 	}
@@ -161,7 +160,7 @@ public GUI() throws Exception
 	{
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			Run.go();						// startet den Suchvorgang
+			Run.go();				// startet den Suchvorgang
 		}
 	});
 	btn_start.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -208,11 +207,9 @@ public GUI() throws Exception
 		public void actionPerformed(ActionEvent e) 
 		{
 			if	(testnet.isSelected()) 	coinParameter = CoinParameter.getFromSymbol("BTC-T");
-			else 	 					coinParameter = CoinParameter.getFromSymbol("BTC");
+			else 	 			coinParameter = CoinParameter.getFromSymbol("BTC");
 
 		}
 	});
-	
-
 }
 }
