@@ -54,7 +54,7 @@ public static 		JTextPane 			txt_Ausgabe;					// Das Ausgabe Feld aller Meldunge
 public static		JProgressBar 		progressBar;					// Die animierte Warte-Anzeige
 public static		JButton 			btn_start;						// Der Start/Stop Button
 public static 		JTextPane 			lbl_Info;						// Das Infofenster mit den Laufzeitinformationen
-public static 		JTextPane 			lbl_Demo;
+public static 		JTextField 			lbl_Demo;
 public static 		JCheckBox 			testnet = new JCheckBox("Testnet");
 public static 		CoinParameter		coinParameter;
 
@@ -102,19 +102,10 @@ public GUI() throws Exception
 	pnl_Main = new JPanel();
 	pnl_Main.setLayout(null);
 	hauptFenster = this;
-	addComponentListener(new ComponentAdapter() 
-	{
-		@Override
-		public void componentResized(ComponentEvent arg0) 
-		{
-				double w = getContentPane().getBounds().getWidth();
-				double h = getContentPane().getBounds().getHeight();
-				AutoSize.size(w,h);										// Automatische Größenanpassung aller Elemente in der GUI	
-		}		
-	});
+
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setTitle(progName+"               "+version);
-	setBounds(100, 100, 650, 400);
+	setBounds(100, 100, 650, 420);
 	//setMaximizedBounds(new java.awt.Rectangle(0, 0, 1300, 800));
 	setMaximumSize(new java.awt.Dimension(650, 1200));
 	setMinimumSize(new java.awt.Dimension(650, 400));
@@ -122,16 +113,14 @@ public GUI() throws Exception
 	setContentPane(pnl_Main);
 		
 	
-	lbl_Demo = new JTextPane();
-	lbl_Demo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	lbl_Demo.setText("   \r\n   Priv. Key wurde gefunden.\r\n   Diese Demoversion kann nur zwei fehlende Zeichen wiederherstellen.\r\n   "
-			+ "Für die Vollversion spenden Sie bitte ihren Wunschbetrag an: 12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB\n   "
-			+ "Und schreiben eine E-Mail an: Maxwell-KSP@gmx.de \r\n   Vielen Dank!");
-	lbl_Demo.setBackground(new Color(255, 204, 204));
+	lbl_Demo = new JTextField();
+	lbl_Demo.setBorder(null);
 	lbl_Demo.setEditable(false);
-	lbl_Demo.setBounds(10, 245, 618, 115);
-	lbl_Demo.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
-	lbl_Demo.setVisible(false);
+	lbl_Demo.setForeground(SystemColor.activeCaption);
+	lbl_Demo.setHorizontalAlignment(SwingConstants.RIGHT);
+	lbl_Demo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+	lbl_Demo.setText("please donate:  12zeCvN7zbAi3JDQhC8tU3DBm35kDEUNiB");
+	lbl_Demo.setBounds(227, 352, 383, 29);
 	pnl_Main.add(lbl_Demo);
 	
 // Label Programm beschreibung
@@ -186,7 +175,7 @@ public GUI() throws Exception
 	txt_Ausgabe.setBackground(SystemColor.menu);
 	txt_Ausgabe.setFont(new Font("Courier New", Font.PLAIN, 15));
 	txt_Ausgabe.setEditable(false);
-	txt_Ausgabe.setBounds(10, 293, 624, 67);
+	txt_Ausgabe.setBounds(10, 293, 624, 61);
 	pnl_Main.add(txt_Ausgabe);
 	
 	
