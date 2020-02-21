@@ -54,8 +54,8 @@ public PrvKey(String privKey, byte[] pref_PrivKey, boolean TRUE) throws Unsuppor
 
 
 /**	@param privKey Dem Konstruktor wird der Priv.Key als String übergeben, das richtige Format wird selbst erkannt.
-Es sind folgene Formate möglich: Hex, Base58, Base58-Compressed, Base64, Base6.	
-@param coinParameter Die CoinParameter müssen übergeben werden, zur identifizierung des jeweiligen Coin. Siehe CoinParameter Class  **/
+	Es sind folgene Formate möglich: Hex, Base58, Base58-Compressed, Base64, Base6.	
+	@param coinParameter Die CoinParameter müssen übergeben werden, zur identifizierung des jeweiligen Coin. Siehe CoinParameter Class  **/
 public PrvKey(String privKey, byte[] pref_PrivKey) throws IllegalArgumentException
 {
 	this.pref_PrivKey = pref_PrivKey;
@@ -122,14 +122,7 @@ public String getBase58PrivKey(boolean compressed)
 
 
 
-
-
-
-
-
-
 //------------------------------ Private Konstruktor Hilfsmethoden --------------------------------------------- 
-
 
 
 //Hier wird geprüft ob der Hexa-Private-Key das richtige Formate hat und innerhalb des erlaubten Zahlenbereiches für ECDSA ist.
