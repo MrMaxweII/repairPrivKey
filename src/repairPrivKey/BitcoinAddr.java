@@ -3,10 +3,10 @@ package repairPrivKey;
 
 
 /***************************************************************************************************************
-*	Version 1.3    						Autor: Mr. Maxwell   						vom 21.02.2020				*
-*	Nicht statische Klasse die eine Coin-Adresse erstellt.														*
-*	Diese Klasse ist für mehrere Coins verwendbar. Mit dem Präfix Argument wird der jeweilige Coin angegeben.	*
-*	In dieser Version ist nur ein Kostruktor implementiert:  Hash160 als 20 ByteArray							*
+*	Version 1.3    			Autor: Mr. Maxwell   			vom 21.02.2020			*
+*	Nicht statische Klasse die eine Coin-Adresse erstellt.							*
+*	Diese Klasse ist für mehrere Coins verwendbar. Mit dem Präfix Argument wird der jeweilige Coin angegeben.*
+*	In dieser Version ist nur ein Kostruktor implementiert:  Hash160 als 20 ByteArray			*
 ****************************************************************************************************************/
 
 
@@ -16,13 +16,13 @@ public class BitcoinAddr
 {
 			
 	private byte[] pref_Pub; 		// Das Prefix welches den jeweiligen Coin repräsentiert
-	private byte[] hash160;				// Die Coin-Adresse als 20Byte Hash160									
+	private byte[] hash160;			// Die Coin-Adresse als 20Byte Hash160	
 	
 	
 	
 	
 
-// ---------------------------------------------------- Konstruktoren -------------------------------------------------------------	
+// ------------------------------------------------ Konstruktoren -------------------------------------------------------
 	
 
 /**	@param hash160 Dem Konstruktor wird die BitcoinAdresse als Hash160 20 Byte-Array übergeben.	
@@ -48,7 +48,7 @@ public BitcoinAddr(String addr, byte[] pref_pubKey) throws IllegalArgumentExcept
 	if(address.substring(0,2).equals(Convert.byteArrayToHexString(pref_pubKey)))
 	{
 		String m = address.substring(0,42);
-		String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(m));	// 2 x SHA256				
+		String h   = Calc.getHashSHA256_from_HexString(Calc.getHashSHA256_from_HexString(m));	// 2 x SHA256
 		h=h.substring(0, 8);
 		if(h.equals(address.substring(42, 50))) hash160 =  Convert.hexStringToByteArray(address.substring(2,42));
 		else throw new IllegalArgumentException("Error in \"BitcoinAddr\" : False Address-Hash!"); 
@@ -72,7 +72,7 @@ public byte[] getHash160()
 
 /**	@return Gibt die Bitcoin-Adresse als Base58 String im WIF-Format zurück  (compressed wird selbst erkannt)**/
 public String getBase58Address()
-{																												
+{		
 	String prefix = Convert.byteArrayToHexString(pref_Pub);
 	String h160   = Convert.byteArrayToHexString(hash160);
 	String addr   = prefix+h160;
