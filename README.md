@@ -1,7 +1,7 @@
 # repairPrivKey
 Hier kann ein Bitcoin Priv. Key mit einigen wenigen fehlenden Zeichen wiederhergestellt werden.
 
-![repairprivkey](https://user-images.githubusercontent.com/34688939/49607419-266eb400-f996-11e8-8f17-6526c5843af0.png)
+![repairPrivKey](https://user-images.githubusercontent.com/34688939/75074392-dc6ee100-54fb-11ea-8273-e5a6f540dee7.png)
 
 Geben Sie den beschädigten Priv.Key ein und ersetzten Sie die fehlenden Zeichen durch ein "_" Unterstrich.
 
