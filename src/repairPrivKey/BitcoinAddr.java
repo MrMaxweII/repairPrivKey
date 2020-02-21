@@ -6,7 +6,6 @@ package repairPrivKey;
 *	Version 1.3    			Autor: Mr. Maxwell   			vom 21.02.2020			*
 *	Nicht statische Klasse die eine Coin-Adresse erstellt.							*
 *	Diese Klasse ist für mehrere Coins verwendbar. Mit dem Präfix Argument wird der jeweilige Coin angegeben.*
-*	In dieser Version ist nur ein Kostruktor implementiert:  Hash160 als 20 ByteArray			*
 ****************************************************************************************************************/
 
 
