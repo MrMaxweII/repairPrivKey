@@ -1,29 +1,69 @@
 package repairPrivKey;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import org.bouncycastle.util.Arrays;
+import java.util.Arrays;
 
 
+
+/************************************************************************************************************
+ *	Version 1.5    Autor: Mr. Maxwell   	vom 09.01.2020		decodeMAGIC() wurde hinzugefügt				*
+ *	Hier werden verschiedene Konvertierungen vorgenommen.													*
+ *																											*
+ ************************************************************************************************************/
 
 
 
 public class Convert
 {
 
-	
-	
 
 	
+/**	Decodiert bekannte Magic-Werte von 4byte-Array nach String.  
+	@param MAGIC 4Byte MAGIC Wert
+	@return String, der das Netzwerk des Magic-Wertes beschreibt.
+	Unbekannte MAGIC-Werte werden mit "Unknown network" zurückgegeben. **/
+public static String decodeMAGIC(byte[] MAGIC)
+{
+	if(MAGIC==null) return "No MAGIC value was entered";
+	if(MAGIC.length!=4) return "No 4 bytes were passed";
+	final byte[] MAINNET = {(byte) 0xf9,(byte) 0xbe,(byte) 0xb4,(byte) 0xD9};
+	final byte[] TESTNET = {(byte) 0xfa,(byte) 0xbf,(byte) 0xb5,(byte) 0xda};
+	final byte[] TESTNET3 = {(byte) 0x0b,(byte) 0x11,(byte) 0x09,(byte) 0x07};
+	if(Arrays.equals(MAGIC,MAINNET)) return "Bitcoin-MainNet";
+	if(Arrays.equals(MAGIC,TESTNET)) return "Bitcoin-TestNet";
+	if(Arrays.equals(MAGIC,TESTNET3))return "Bitcoin-TestNet3";
+	return "Unknown network";
+}
+
+
+
+/**	Wandelt ein Byte in Boolean um.
+	@param b Wenn das Byte nicht 0x00 ist wird true zurück gegeben. **/	
+public static boolean byteToBool(byte b) 
+{
+	return (b != 0x00) ;
+}
+
+
+
+/**	Wandelt ein Boolean in Byte um.
+	@param bool Wenn bool = false wird, 0x00 zurück gegeben.
+	Wenn bool = true, wird 0xff zurück gegeben. **/
+public static byte boolToByte(boolean bool) 
+{	
+	if(bool) return (byte)0xff;
+	else return 0x00;
+}
+
+
 	
-/** Hexa String wird in ein Byte Array konvertiert. */
+/**	Hex-String wird in ein Byte Array konvertiert. 
+	@param hex Es dürfen nur Zeichen zwichen [0-f] oder [0-F] mit einer geraden Anzahl übergeben werden.
+	@return Byte-Array welches dem Hex-String entspricht.
+	@exception IllegalArgumentException bei ungerader Zeichenfolge!**/
 public static byte[] hexStringToByteArray(String hex) 
 {                                                                     
-	if((hex.length()%2)==1)                            // Falls die Länge des Strings ungerade ist, wird eine 1 angeh?ngt
-	{
-		char c = '1';
-		hex += c;
-		System.out.println("Fehler in Convert.hexStringToByteArray: Ungerade String-Zeichenfolge!");
-	}
+	if((hex.length()%2)==1) throw new IllegalArgumentException("Ungerade String-Zeichenfolge: "+hex);
 	int l = hex.length();
 	byte[] data = new byte[l/2];
 	for (int i = 0; i < l; i += 2) 
@@ -32,11 +72,27 @@ public static byte[] hexStringToByteArray(String hex)
 	}
 	return data;
 }
-   
-   
 
 
-    
+
+/**	Hex-String wird in ein Byte Array konvertiert. Dabei werden hier auch ungerade Zeichenfolgen akzepiert!
+	Ist die Länge ungerade, wird eine 0 voranngestellt: Beispeiel 123 ---> 0123
+	@param hex Zeichen zwichen [0-f] oder [0-F] mit einer geraden oder ungeraden Anzahl.
+	@return Byte-Array welches dem Hex-String entspricht.	**/
+public static byte[] hexStringToByteArray_oddLength(String hex) 
+{                                                                     
+	if((hex.length()%2)==1) hex = "0"+hex;	
+	int l = hex.length();
+	byte[] data = new byte[l/2];
+	for (int i = 0; i < l; i += 2) 
+	{
+		data[i/2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4) + Character.digit(hex.charAt(i+1), 16));
+	}
+	return data;
+}
+
+
+  
 /** Byte Array wird in einen Hexa String konvertiert. */
 public static String byteArrayToHexString(byte[] a) 
 {
@@ -46,12 +102,46 @@ public static String byteArrayToHexString(byte[] a)
 	return sb.toString();
 }	
 	
-	
-	
+
+
+/** Konvertiert ein Double in 8 Byte-Array **/
+public static byte[] double_to_8Bytes(double value) 
+{
+    byte[] bytes = new byte[8];
+    ByteBuffer.wrap(bytes).putDouble(value);
+    return bytes;
+}
+
+
+
+/**	Wandelt ein 8 Byte-Array in Double um
+	@param b Es werden maximal nur die ersten 8 Bytes verwendet.	
+	@throws IllegalArgumentException Wenn weniger als 8Bytes übergeben wurde, wird Fehler ausgelöst.**/
+public static double byteArray_to_double(byte[] b)
+{
+	if(b.length < 8) throw new IllegalArgumentException("");
+	if(b.length > 8)
+	{
+		byte[] out = new byte[8];
+		System.arraycopy(b, 0, out, 0, 8);
+	}
+	return ByteBuffer.wrap(b).getDouble();
+}
+
+
+
+/**	Konvertiert das normalte Integer Format in ein korrekt aufsteigendes Integer Format
+	0x00000000 = -2.147.483.648;
+	0xFFFFFFFF =  2.147.483.647;         */
+public static int int_convert_int(int in)
+{
+	return in ^ -2147483648;
+}
+
 
 
 /** Wandelt ein Base58 Text-String in Hex-String um. 
-*   In "laenge" wird die Anzahl der Ausgabe-Zeichen übergeben. */
+	In "laenge" wird die Anzahl der Ausgabe-Zeichen übergeben. */
 public static String Base58ToHexString(String str, int laenge)
 {
 	char[] ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
@@ -88,10 +178,6 @@ public static String Base58ToHexString(String str, int laenge)
 
 
 
-
-
-
-
 /** Hexa String wird in einen Base58 String konvertiert. */
 public static String hexStringToBase58(String str)
 {
@@ -100,8 +186,6 @@ public static String hexStringToBase58(String str)
    return String.valueOf(c);
 }
  
-
-
 
  
 /** Byte Array wird in ein Base58 char Array konvertiert. */
@@ -138,9 +222,6 @@ public static char[] toBase58(byte[] k)
 
 
 
-
-
-
 /** Dreht die Reihenfolge eines ByteArray´s um.  */
 public static void swapBytes(byte[] array) 
 {
@@ -157,8 +238,6 @@ public static void swapBytes(byte[] array)
 		i++;
 	}
 }
-
-
 
 
 
@@ -183,14 +262,10 @@ public static byte[] swapBytesCopy(byte[] in)
 
 
 
-
-
-
-
 /** Wandelt Byte-Array in Integer um, nur positive Zahlen.
-* Es werden maximal nur die ersten 4 Bytes verwendet.
-* Im Fehlerfall wird -1 zurückgegeben
-* Maximaler Byte Wert für positive Werte: 7f ff ff ff  = 2147483647  = Maximaler positiver Integer Wert		*/
+	Es werden maximal nur die ersten 4 Bytes verwendet.
+	Im Fehlerfall wird -1 zurückgegeben
+	Maximaler Byte Wert für positive Werte: 7f ff ff ff  = 2147483647  = Maximaler positiver Integer Wert		*/
 public static int byteArray_to_int(byte[] b) 
 {
 	if(b.length==1) return b[0]&0xff;
@@ -202,10 +277,9 @@ public static int byteArray_to_int(byte[] b)
 
 
 
-
 /** Wandelt Byte-Array in Long um, nur positive Zahlen.
- *  Wenn mehr als 8 Byte übergeben werden, werden nur die vordersten 8 Byte zur Berechnung benutzt.
- *  Maximaler Byte Wert für positive Werte: 7f ff ff ff ff ff ff ff  = 2^63-1 Maximaler positiver Long wert	*/
+ 	Wenn mehr als 8 Byte übergeben werden, werden nur die vordersten 8 Byte zur Berechnung benutzt.
+	Maximaler Byte Wert für positive Werte: 7f ff ff ff ff ff ff ff  = 2^63-1 Maximaler positiver Long wert	*/
 public static long byteArray_to_long(byte[] b) 
 {
 	if(b.length==1) return b[0]&0xff;
@@ -218,7 +292,6 @@ public static long byteArray_to_long(byte[] b)
 	if(b.length>=8) return ((long)(0xFF & b[0]) << 56) | ((long)(0xFF & b[1]) << 48) | ((long)(0xFF & b[2]) << 40) | ((long)(0xFF & b[3]) << 32) | ((long)(0xFF & b[4]) << 24)  | ((long)(0xFF & b[5]) << 16) | ((long)(0xFF & b[6]) << 8) | ((long)(0xFF & b[7]));
 	return -1;
 }
-
 
 
 
@@ -259,25 +332,20 @@ public static byte[] Int_To_4_ByteArray_swap(int data)
 
 
 
-
-
 /**	Wandelt ein Long in 8 Byte um.
-*	Es werden immer genau 8Byte erzeugt und mit Nullen vorne aufgefüllt   */
+	Es werden immer genau 8Byte erzeugt und mit Nullen vorne aufgefüllt   */
 public static byte[] Long_To_8_ByteArray(long data)
 {
 	ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-    	buffer.putLong(data);
-    	return buffer.array();
+    buffer.putLong(data);
+    return buffer.array();
 }
 
 
 
-
-
-
 /**	Beschneidet ein ByteArray belibiger länge auf eine fest definierte Länge "len".
-*	- Wenn "data" kleiner als "len" ist wird es vorne mit Nullen aufgefüllt.
-*	- Wenn "data" länger als "len" ist, wird es hinten abgeschnitten.   */
+	- Wenn "data" kleiner als "len" ist wird es vorne mit Nullen aufgefüllt.
+	- Wenn "data" länger als "len" ist, wird es hinten abgeschnitten.   */
 public static byte[] to_fixLength(byte[] data, int len)
 {
 	if(data.length < len)
@@ -292,6 +360,14 @@ public static byte[] to_fixLength(byte[] data, int len)
 
 
 
+/**	Entfernt alle führenden Nullen eines Byte-Arrays
+@return Null wenn das Byte-Array nur Nullen enthällt.  **/
+public static byte[] removeLeadingZeros(byte[] data)
+{
+	int i=0;
+	for(;i<data.length;i++) {if(data[i] != 0x00) break;}
+	return Arrays.copyOfRange(data, i, data.length);
+}
 
 
 
@@ -302,4 +378,4 @@ public static boolean isZwischen(String str, int a, int b)
 	if(z>=a && z<= b)return true;
 	else return false;	
 }
-
+}

@@ -3,23 +3,26 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import GUI.GUI;
 
+/****************************************************************************************
+*																						*
+*	 Hauptklasse die das Programm verwaltet												*
+*																						*
+*																						*
+*****************************************************************************************/
 
-	/************************************************************************
-	*									*
-	*	 Hauptklasse die das Programm verwaltet				*
-	*									*
-	*************************************************************************/
+
+
 
 
 public class Run 
 {
 
-	final static 	char[] 	base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
-	static 		byte[] 	hash;					// der Hash160 der Bitcoin Adresse
-	public static 	String 	ausgabe = "";				// Der Ausgabestring 
-	static 		boolean fund;					// wird gesetzt bei einer Übereinstimmung
-	public static 	boolean	stop;					// wird gesetzt, wenn der Suchvorgang abgebrochen wird.
-	public static 	boolean threadIsRun;				// Wird gesetzt wenn der Thread läuft
+	final static char[] 	base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
+	static byte[] 			hash;						// der Hash160 der Bitcoin Adresse
+	public static String 	ausgabe = "";				// Der Ausgabestring 
+	static boolean 			fund;						// wird gesetzt wei einer Übereinstimmung
+	public static boolean	stop;						// wird gesetzt, wenn der Suchvorgang abgebrochen wird.
+	public static boolean 	threadIsRun;				// Wird gesetzt wenn der Thread läuft
 	
 	
 	
@@ -28,49 +31,48 @@ public class Run
 // Der Suchvorganz wird in einem eigenem Thrad gestartet	
 public static void go()
 {
-  Runnable runnable = new Runnable() 
-  {
-	public void run() 
+	Runnable runnable = new Runnable() 
 	{
-	  threadIsRun = true;	
-	  GUI.progressBar.setVisible(true);
-	  GUI.btn_start.setText("Abbrechen");			
-	  try 
-	  {
-	    BitcoinAddr bAdr = new BitcoinAddr(GUI.txt_BitcoinAdr.getText(), "f9beb4d9");
-	    hash = bAdr.getHash160_byte();
-	    ausgabe = "";	
-	    String priv_e = GUI.txt_PrivateKey.getText();		// Der eingegebene Priv.Key aus dem Textfeld
-	    if(priv_e.length()==51)					// Prüft ob die Länge des Priv.Keys genau 51 Zeichen lang ist.
-	    {
-		GUI.lbl_Info.setVisible(true);
-		GUI.txt_Ausgabe.setText("");
-		GUI.txt_Ausgabe.setVisible(true);
-		GUI.lbl_Demo.setVisible(false);
-		char[] prv = priv_e.toCharArray();			// Der eingegebene Priv.Key wird in ein Char Array konvertiert
-		int[] indexAllSearch = allIndexOf(priv_e);		// Der Index aller Suchelemente wird übergeben
-		int len = indexAllSearch.length;			// Die Anzahl der Suchelemente "_"
-		calcComputingTime(len);					// Berechnet die Laufzeit und gibt sie im Infofenster aus
-		for(int i=0;i<len;i++)  prv[indexAllSearch[i]] = base58[0];// Alle "_" werden mit dem ersten Zeichen aus Base58 ersetzt.
-		fund = false;
-		increment(prv,indexAllSearch,0);
-		if(fund==false) ausgabe = "Keine Übereinstimmung gefunden.";
-	    }	
-	    else ausgabe = "Der Priv.Key muss genau 51 Zeichen lang sein! (base58 Format)";
-	  }
-	  catch (IllegalArgumentException e) 
-	  {ausgabe = "Fehler im Eingabefeld Bitcoin Adresse! Es wurde keine gültige Bitcoin Adresse erkannt.\n"+e.getMessage();}
-	  GUI.lbl_Info.setText("");	
-	  GUI.txt_Ausgabe.setText(ausgabe);
-	  GUI.btn_start.setText("Suche starten");
-	  GUI.progressBar.setVisible(false);
-	  stop = false;
-	  threadIsRun = false;
+		public void run() 
+		{
+			threadIsRun = true;																
+			GUI.progressBar.setVisible(true);
+			GUI.btn_start.setText("Abbrechen");			
+			try 
+			{
+				BitcoinAddr bAdr = new BitcoinAddr(GUI.txt_BitcoinAdr.getText()  , GUI.coinParameter.pref_PubKey);// Eingabe Feld wird eingelesen und auf Richtigkeit geprüft.
+				hash = bAdr.getHash160();				
+				ausgabe = "";	
+				String priv_e = GUI.txt_PrivateKey.getText();								// Der eingegebene Priv.Key aus dem Textfeld				
+				if(priv_e.length()==51)														// Prüft ob die Länge des Priv.Keys genau 51 Zeichen lang ist.
+				{
+					GUI.lbl_Info.setVisible(true);
+					GUI.txt_Ausgabe.setText("");
+					GUI.txt_Ausgabe.setVisible(true);
+					GUI.lbl_Demo.setVisible(false);
+					char[] prv = priv_e.toCharArray();										// Der eingegebene Priv.Key wird in ein Char Array konvertiert
+					int[] indexAllSearch = allIndexOf(priv_e);								// Der Index aller Suchelemente wird übergeben
+					int len = indexAllSearch.length;										// Die Anzahl der Suchelemente "_"																												
+					calcComputingTime(len);													// Berechnet die Laufzeit und gibt sie im Infofenster aus					
+					for(int i=0;i<len;i++)  prv[indexAllSearch[i]] = base58[0];				// Alle "_" werden mit dem ersten Zeichen aus Base58 ersetzt.
+					fund = false;
+					increment(prv,indexAllSearch,0);
+					if(fund==false) ausgabe = "Keine Übereinstimmung gefunden.";
+				}	
+				else ausgabe = "Der Priv.Key muss genau 51 Zeichen lang sein! (base58 Format)";
+			}
+			catch (IllegalArgumentException e) {ausgabe = "Fehler im Eingabefeld Bitcoin Adresse! Es wurde keine gültige Bitcoin Adresse erkannt.\n"+e.getMessage();}
+			GUI.lbl_Info.setText("");	
+			GUI.txt_Ausgabe.setText(ausgabe);
+			GUI.btn_start.setText("Suche starten");
+			GUI.progressBar.setVisible(false);
+			stop = false;
+			threadIsRun = false;
+		};
 	};
-  };
-  Thread thread = new Thread(runnable);
-  if(stop==false && threadIsRun==false) thread.start(); 
-  else stop=true;	
+	Thread thread = new Thread(runnable);
+	if(stop==false && threadIsRun==false) thread.start(); 
+	else stop=true;	
 }
 	
 
@@ -122,19 +124,20 @@ private static void increment(char[] c, int[] indexAllSearch, int pos)
 			if(System.currentTimeMillis() % 50 == 0)  GUI.txt_Ausgabe.setText(String.valueOf(c));
 			try
 			{				
-				PrvKey p = new PrvKey(String.valueOf(c),"f9beb4d9");
-				if(Arrays.equals(hash, p.getHash160().get()))
-				{	ausgabe = (p.getBase58PrivKey());
+				PrvKey p = new PrvKey(String.valueOf(c)  ,  GUI.coinParameter.pref_PrivKey);
+				byte[] pub = Calc.getPublicKey(p.getHexPrivKey(), false);
+				byte[] h160 = Calc.getHashRIPEMD160(Calc.getHashSHA256(pub));
+				if(Arrays.equals(hash, h160))
+				{	
+					ausgabe = p.getBase58PrivKey(false);
 					pos = 1000;
-					fund = true;
-					
+					fund = true;				
 					if(GUI.version.indexOf("Demo")>0 && indexAllSearch.length>2)
 					{
 						GUI.lbl_Info.setVisible(false);
 						GUI.txt_Ausgabe.setVisible(false);
 						GUI.lbl_Demo.setVisible(true);
-					}
-					
+					}					
 					return;
 				}	
 			}
@@ -148,9 +151,9 @@ private static void increment(char[] c, int[] indexAllSearch, int pos)
 // Gibt alle Positionen zurück an denen das fehlende Zeichen als "_" eingegeben wurde.
 private static int[] allIndexOf(String in)
 {
-	int z=0;				
-	for(int i=0;i<in.length();i++)	if(in.charAt(i)=='_') z++;
-	int[] erg = new int[z];			
+	int z=0;																
+	for(int i=0;i<in.length();i++)	if(in.charAt(i)=='_') z++;				
+	int[] erg = new int[z];													
 	z=0;
 	for(int i=0;i<in.length();i++)
 	{
