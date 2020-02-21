@@ -49,7 +49,6 @@ public static void go()
 					GUI.lbl_Info.setVisible(true);
 					GUI.txt_Ausgabe.setText("");
 					GUI.txt_Ausgabe.setVisible(true);
-					GUI.lbl_Demo.setVisible(false);
 					char[] prv = priv_e.toCharArray();										// Der eingegebene Priv.Key wird in ein Char Array konvertiert
 					int[] indexAllSearch = allIndexOf(priv_e);								// Der Index aller Suchelemente wird übergeben
 					int len = indexAllSearch.length;										// Die Anzahl der Suchelemente "_"																												
@@ -132,12 +131,12 @@ private static void increment(char[] c, int[] indexAllSearch, int pos)
 					ausgabe = p.getBase58PrivKey(false);
 					pos = 1000;
 					fund = true;				
-					if(GUI.version.indexOf("Demo")>0 && indexAllSearch.length>2)
-					{
-						GUI.lbl_Info.setVisible(false);
-						GUI.txt_Ausgabe.setVisible(false);
-						GUI.lbl_Demo.setVisible(true);
-					}					
+//					if(GUI.version.indexOf("Demo")>0 && indexAllSearch.length>2)
+//					{
+//						GUI.lbl_Info.setVisible(false);
+//						GUI.txt_Ausgabe.setVisible(false);
+//						GUI.lbl_Demo.setVisible(true);
+//					}					
 					return;
 				}	
 			}
