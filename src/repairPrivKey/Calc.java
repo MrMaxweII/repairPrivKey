@@ -12,11 +12,11 @@ import org.bouncycastle.math.ec.ECPoint;
 
 
 
-/***********************************************************************************************
-*		Version 1.5    getPublicKey geändert  Autor: Mr. Maxwell	vom 13.02.2020 	*
-*		Hier werden verschiedene Berechnungen durchgeführt.				*
-*												*
-************************************************************************************************/
+/***************************************************************************************
+*	Version 1.5    getPublicKey geändert  Autor: Mr. Maxwell	vom 13.02.2020 			*
+*	Hier werden verschiedene Berechnungen durchgeführt.									*
+*																						*
+****************************************************************************************/
 
 
 
@@ -61,7 +61,7 @@ public static byte[] getPublicKey(byte[] privateKey, boolean compressed)
 
 	
 	
-// ------------------------------------------------- Hash SHA256 ------------------------------------------------------//
+// ------------------------------------------------- Hash SHA256 -------------------------------------//
 
 	
 /** Berechnet den Hash(SHA256) aus einem Hex-String und gibt ihn als Hex-String zurück.   */	
@@ -110,7 +110,7 @@ public static byte[] getHashSHA256(byte[] b)
 
 
 		
-// ------------------------------------------------- Hash RIPEMD-160 ----------------------------------------------------//
+// ------------------------------------------------- Hash RIPEMD-160 --------------------------------------//
 			
 public static String getHashRIPEMD160_from_HexString(String str)
 {
@@ -131,7 +131,7 @@ public static byte[] getHashRIPEMD160(byte[] b)
 	
 
 
-// ------------------------------------------------- SHA1 ----------------------------------------------------------------//
+// ------------------------------------------------- SHA1 -----------------------------------------------//
 
 /**	Gibt den SHA1 Hash in Base64 zurück  **/
 public static String getHashSHA1(String in) 
@@ -154,10 +154,7 @@ public static String getHashSHA1(String in)
 
 
 
-
 // ------------------------------------------------------ Compact-Size ---------------------------------------------------//
-
-
 
 
 /** parst einen Datensatzt mit Variabler Länge  Compact-Size: https://en.bitcoin.it/wiki/Protocol_documentation
@@ -165,16 +162,14 @@ public static String getHashSHA1(String in)
 	Rückgabe ist ein Byte-Array mit den Nutzdaten.         **/
 public static byte[] parseCompactSize(byte[] data, int pos) throws ConnectException
 {
-	int[] sizeData = decodeCompactSize(data,pos);									// Die Werte für "start" und "len" werden hier gesetzt
-	int start = sizeData[0];														// Position des Data-Byte-Array´s bei der die Nutzdaten beginnen
-	int len = sizeData[1];															// Länge der Nutzdaten
+	int[] sizeData = decodeCompactSize(data,pos);							
+	int start = sizeData[0];											
+	int len = sizeData[1];							
 	if(len<0) {throw new ConnectException("Fehler in Calc.parseCompactSize, maximale Länge der Nutzdaten von 2147483647Byte überschritten!"); }
-	byte[] out = new byte[len];														// Das ausgabe Array wird erstellt
-	System.arraycopy(data,start,out,0,len);											// Die Nutzdaten werden in das Ausgabe-Array koppiert.		
+	byte[] out = new byte[len];						
+	System.arraycopy(data,start,out,0,len);								
 	return out;
 }
-
-
 
 
 
@@ -188,26 +183,26 @@ public static byte[] parseCompactSize(byte[] data, int pos) throws ConnectExcept
 public static int[] decodeCompactSize(byte[] data, int pos)
 {
 	int[] out = new int[2];
-	if((data[pos]&0xff) < 253)											// Auswahl <0xFD
+	if((data[pos]&0xff) < 253)										
 	{
-		byte[] b = {data[pos]};											// Das erste Feld welches die Länge enthält wird zwichengespeichert
-		out[1] = Convert.byteArray_to_int(b);							// Die Länge wird in Int konvertiert
+		byte[] b = {data[pos]};										
+		out[1] = Convert.byteArray_to_int(b);						
 		out[0] = pos+1;
 	}
 	
-	if(data[pos]==(byte)0xFD)											// Auswahl  == 0xFD
+	if(data[pos]==(byte)0xFD)										
 	{
-		byte[] b = {data[pos+1],data[pos+2]};							// Das zweite Feld welches die Länge enthält wird zwichengespeichert
-		Convert.swapBytes(b);											// Byte-Reihenvolge wird vertauscht
-		out[1] = Convert.byteArray_to_int(b);							// Die Länge wird in Int konvertiert
+		byte[] b = {data[pos+1],data[pos+2]};						
+		Convert.swapBytes(b);										
+		out[1] = Convert.byteArray_to_int(b);						
 		out[0] = pos+3;
 	}
 	
-	if(data[pos]==(byte)0xFE)											// Auswahl == 0xFE
+	if(data[pos]==(byte)0xFE)										
 	{
-		byte[] b = {data[pos+1],data[pos+2],data[pos+3],data[pos+4]};	// Das dritte Feld welches die Länge enthält wird zwichengespeichert
-		Convert.swapBytes(b);											// Byte-Reihenvolge wird vertauscht
-		out[1] = Convert.byteArray_to_int(b);							// Die Länge wird in Int konvertiert	
+		byte[] b = {data[pos+1],data[pos+2],data[pos+3],data[pos+4]};
+		Convert.swapBytes(b);										
+		out[1] = Convert.byteArray_to_int(b);						
 		out[0] = pos+5;
 	}	
 	return out;
@@ -248,6 +243,4 @@ public static byte[] encodeCompactSize(byte[] dataIn)
 	}	
 	return null;	
 }
-
-
 }
