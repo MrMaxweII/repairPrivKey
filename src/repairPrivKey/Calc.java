@@ -13,9 +13,9 @@ import org.bouncycastle.math.ec.ECPoint;
 
 
 /***********************************************************************************************
-*		Version 1.5    getPublicKey geändert  Autor: Mr. Maxwell	vom 13.02.2020 				*
-*		Hier werden verschiedene Berechnungen durchgeführt.										*
-*																								*
+*		Version 1.5    getPublicKey geändert  Autor: Mr. Maxwell	vom 13.02.2020 	*
+*		Hier werden verschiedene Berechnungen durchgeführt.				*
+*												*
 ************************************************************************************************/
 
 
