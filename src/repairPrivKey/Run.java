@@ -6,7 +6,7 @@ import GUI.GUI;
 
 
 /****************************************************************************************
-*	 Hauptklasse die das Programm verwaltet						*
+*	 Hauptklasse die das Programm verwaltet												*
 *****************************************************************************************/
 
 
@@ -14,11 +14,11 @@ import GUI.GUI;
 public class Run 
 {
 	final static char[] 	base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
-	static byte[] 		hash;			// der Hash160 der Bitcoin Adresse
-	public static String 	ausgabe = "";		// Der Ausgabestring 
-	static boolean 		fund;			// wird gesetzt wei einer Übereinstimmung
-	public static boolean	stop;			// wird gesetzt, wenn der Suchvorgang abgebrochen wird.
-	public static boolean 	threadIsRun;		// Wird gesetzt wenn der Thread läuft
+	static byte[] 			hash;						// der Hash160 der Bitcoin Adresse
+	public static String 	ausgabe = "";				// Der Ausgabestring 
+	static boolean 			fund;						// wird gesetzt wei einer Übereinstimmung
+	public static boolean	stop;						// wird gesetzt, wenn der Suchvorgang abgebrochen wird.
+	public static boolean 	threadIsRun;				// Wird gesetzt wenn der Thread läuft
 	
 	
 	
@@ -29,7 +29,7 @@ public static void go()
 	{
 		public void run() 
 		{
-			threadIsRun = true;										
+			threadIsRun = true;																
 			GUI.progressBar.setVisible(true);
 			GUI.btn_start.setText("Abbrechen");			
 			try 
@@ -37,7 +37,7 @@ public static void go()
 				BitcoinAddr bAdr = new BitcoinAddr(GUI.txt_BitcoinAdr.getText()  , GUI.coinParameter.pref_PubKey);
 				hash = bAdr.getHash160();				
 				ausgabe = "";	
-				String priv_e = GUI.txt_PrivateKey.getText();				
+				String priv_e = GUI.txt_PrivateKey.getText();												
 				if(priv_e.length()==51 || priv_e.length()==52)								
 				{
 					GUI.lbl_Info.setVisible(true);
@@ -45,7 +45,7 @@ public static void go()
 					GUI.txt_Ausgabe.setVisible(true);
 					char[] prv = priv_e.toCharArray();							
 					int[] indexAllSearch = allIndexOf(priv_e);					
-					int len = indexAllSearch.length;											
+					int len = indexAllSearch.length;																										
 					calcComputingTime(len);												
 					for(int i=0;i<len;i++)  prv[indexAllSearch[i]] = base58[0];	
 					fund = false;

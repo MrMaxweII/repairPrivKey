@@ -13,9 +13,9 @@ import org.bouncycastle.math.ec.ECPoint;
 
 
 /***************************************************************************************
-*	Version 1.5    getPublicKey geändert  Autor: Mr. Maxwell	vom 13.02.2020 	*
-*	Hier werden verschiedene Berechnungen durchgeführt.				*
-*											*
+*	Version 1.5    getPublicKey geändert  Autor: Mr. Maxwell	vom 13.02.2020 			*
+*	Hier werden verschiedene Berechnungen durchgeführt.									*
+*																						*
 ****************************************************************************************/
 
 
@@ -29,13 +29,13 @@ public class Calc
 	  
 	  
 /** Berechnet den PublicKey aus einem Private-Key.
-@param str Übergeben wird der Private-Key als Hex-String (32Byte)
-@param compressed wenn "true" dann wird der Pub-Key komprimiert (nur X-Koordinate)	
-@return Gibt den Public Key als Hex-String zurück.
-Das Erste Byte ist ein Status-Byte mit den folgenden Informationen.
-02 : komprimierter Pub-Key, enthält nur die X-Koordinate, die Y-Koordinate ist positiv (33Byte)
-03 : komprimierter Pub-Key, enthält nur die X-Koordinate, die Y-Koordinate ist negativ (33Byte)
-04 : unkomprimierter Pub-Key mit X und Y Koordinaten (65Byte) **/  
+	@param str Übergeben wird der Private-Key als Hex-String (32Byte)
+	@param compressed wenn "true" dann wird der Pub-Key komprimiert (nur X-Koordinate)	
+	@return Gibt den Public Key als Hex-String zurück.
+	Das Erste Byte ist ein Status-Byte mit den folgenden Informationen.
+	02 : komprimierter Pub-Key, enthält nur die X-Koordinate, die Y-Koordinate ist positiv (33Byte)
+	03 : komprimierter Pub-Key, enthält nur die X-Koordinate, die Y-Koordinate ist negativ (33Byte)
+	04 : unkomprimierter Pub-Key mit X und Y Koordinaten (65Byte) **/  
 public static String getPublicKey(String str, boolean compressed) 
 { 
     byte[] b = getPublicKey(Convert.hexStringToByteArray(str),compressed);
@@ -80,11 +80,10 @@ public static String getHashSHA256(String str)
 		byte[] b = getHashSHA256((str).getBytes("UTF-8"));
 		return Convert.byteArrayToHexString(b);
 	} 
-	catch (UnsupportedEncodingException e) 
-	{
-		System.out.println("Fehler in getHashSHA256()");
-		System.out.println(e.getMessage());
-		return "-1";
+		catch (UnsupportedEncodingException e) {
+			System.out.println("Fehler in getHashSHA256()");
+			System.out.println(e.getMessage());
+			return "-1";
 	}
 	 
 }
@@ -122,11 +121,11 @@ public static String getHashRIPEMD160_from_HexString(String str)
 		
 public static byte[] getHashRIPEMD160(byte[] b)
 {
-	RIPEMD160Digest ripemd = new RIPEMD160Digest();
-      	ripemd.update (b, 0, b.length);
-      	byte[] hash160 = new byte[ripemd.getDigestSize()];
-      	ripemd.doFinal (hash160, 0);
-	return hash160;	
+	  RIPEMD160Digest ripemd = new RIPEMD160Digest();
+      ripemd.update (b, 0, b.length);
+      byte[] hash160 = new byte[ripemd.getDigestSize()];
+      ripemd.doFinal (hash160, 0);
+	  return hash160;	
 }	
 	
 	
